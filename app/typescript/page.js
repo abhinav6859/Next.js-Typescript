@@ -3,7 +3,7 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      <h1>Dashboard xxxxxxx</h1>
+      <h1>Learn Typescript</h1>
     </div>
   )
 }

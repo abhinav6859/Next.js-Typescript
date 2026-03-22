@@ -39,9 +39,10 @@ export default function Home() {
 
   const deleteTask = async (_id: string) => {
     try {
-      await axios.delete("/api/todo", { data: { _id } });
+  const response =  await axios.delete("/api/todo", { data: { _id } });
       setTasks((prev) => prev.filter((task) => task._id !== _id));
-         toast.success("Task Deleted Successfully 🗑️",{
+        //  toast.success("Task Deleted Successfully 🗑️",{
+           toast.success(response.data.message,{
           autoClose: 1000,
          });
   

@@ -1,19 +1,20 @@
 "use client";
 
-import Image from "next/image";
+
 import React from 'react'
 import { ToastContainer , toast } from "react-toastify";
 import Link from "next/link";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import  { AxiosError } from "axios";
+import { useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import Button from "../components/Button";
 
-type details = {
-    name: string;
-    email: string;
-    password: string | number;
-}
+// type details = {
+//     name: string;
+//     email: string;
+//     password: string | number;
+// }
 
 export default function Register() {
 
@@ -34,23 +35,54 @@ const handlesubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   
   }
 
-  try {
-    const response = await axios.post("/api/auth", formData);
-    toast.success(response.data.message);
+//   try {
+//     const response = await axios.post("/api/auth", formData);
+//     toast.success(response.data.message);
 
   
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
+//     setFormData({
+//       name: "",
+//       email: "",
+//       password: "",
+//     });
 
-  } catch (error) {
-    toast.error(
-      error?.response?.data?.message || "Failed to register user"
-    );
+//   } catch (error: unknown) {
+//     toast.error(
+//       error?.response?.data?.message || "Failed to register user"
+//     );
+//   }
+
+
+
+try {
+  const response = await axios.post("/api/auth", formData);
+
+  toast.success(response.data.message);
+
+  setFormData({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+} catch (error: unknown) {
+  if (axios.isAxiosError(error)) {
+    const message =
+      error.response?.data?.message || "Failed to register user";
+
+    toast.error(message);
+  } else {
+    toast.error("Something went wrong");
   }
-};
+}
+
+ };
+
+
+
+
+
+
 
  return(
   <>

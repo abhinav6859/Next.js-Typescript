@@ -1,5 +1,4 @@
 
-import { NextApiRequest, NextApiResponse } from "next";
 import {NextRequest, NextResponse } from "next/server";
 import {connectDB }from "@/lib/config/db";
 import AuthModel from "@/lib/models/authmodel";
@@ -24,7 +23,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   const { name, email, password } = await request.json();
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10); 
 
   try {
     const newUser = new AuthModel({ name, email, password: hashedPassword });
